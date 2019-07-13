@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljq.hm.dao.MemberDao">
+    <resultMap id="resultMap" type="member">
+        <id property="id" column="id" javaType="String"/>
+        <result property="name" column="name" javaType="String"/>
+        <result property="sex" column="sex" javaType="String"/>
+        <result property="roomId" column="room_id" javaType="String"/>
+        <result property="identity" column="identity" javaType="String"/>
+        <result property="account" column="account" javaType="String"/>
+        <result property="password" column="password" javaType="String"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="Member">
+        insert into member(id,name,sex,room_id,identity,account,password) values (#{id},#{name},#{sex},#{roomId},#{identity},#{account},#{password})
+    </insert>
+
+    <delete id="delete" parameterType="String">
+        delete from member where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="Member">
+        update member set id=#{id},name=#{name},sex=#{sex},room_id=#{roomId},identity=#{identity},account=#{account},password=#{password} where account=#{account};
+    </update>
+
+    <select id="selectById" parameterType="String" resultMap="resultMap">
+        select * from member where id=#{id}
+    </select>
+
+    <select id="selectByAccount" parameterType="String" resultMap="resultMap">
+        select * from member where account=#{account}
+    </select>
+
+    <select id="selectByRoomId" parameterType="String" resultMap="resultMap">
+        select * from member where room_id=#{roomId}
+    </select>
+
+    <select id="selectAll" resultMap="resultMap">
+        select * from member
+    </select>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljq.hm.dao.RoomDao">
+    <resultMap id="resultMap" type="Room">
+        <id property="roomId" column="room_id" javaType="String"/>
+        <result property="state" column="state" javaType="String"/>
+        <result property="roomType" column="room_type" javaType="String"/>
+        <result property="price" column="price" javaType="Integer"/>
+        <result property="diction" column="diction" javaType="String"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="Room" useGeneratedKeys="true">
+        insert into room(room_id,state,room_type,price,diction) values(#{roomId},#{state},#{roomType},#{price},#{diction})
+    </insert>
+    <delete id="delete" parameterType="String">
+        delete from room where room_id=#{id}
+    </delete>
+    <update id="update" parameterType="Room">
+        update room set state=#{state},room_type=#{roomType},price=#{price},diction=#{diction} where room_id=#{roomId}
+    </update>
+    <select id="selectById" parameterType="String" resultMap="resultMap">
+        select * from room where room_id=#{id}
+    </select>
+    <select id="selectByType" parameterType="String" resultMap="resultMap">
+        select * from room where room_type=#{roomType}
+    </select>
+    <select id="selectByState" resultMap="resultMap">
+        select * from room where room_type=#{arg0} and state=#{arg1}
+    </select>
+    <select id="selectByFloor" resultMap="resultMap">
+        select * from room where room_type=#{arg0} and state=#{arg1} and substring(room_id,1,1)=#{arg2}
+    </select>
+    <select id="selectAll" resultMap="resultMap">
+        select * from room;
+    </select>
+    <select id="selectByYd" parameterType="String" resultMap="resultMap">
+        select * from room where state=#{state}
+    </select>
+</mapper>
